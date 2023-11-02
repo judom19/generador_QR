@@ -1,0 +1,18 @@
+# Ignora los archivos y directorios generados por Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Ignora el directorio del entorno virtual (venv)
+entorno_qr/
+
+# Ignora el archivo de la base de datos SQLite
+db.sqlite3
+
+# Ignora los archivos generados por Django
+*.log
+
+# Ignora los archivos generados por Pillow (imágenes generadas)
+qr_app/static/qr_codes/
