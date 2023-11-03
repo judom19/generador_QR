@@ -15,4 +15,5 @@ db.sqlite3
 *.log
 
 # Ignora los archivos generados por Pillow (imágenes generadas)
-qr_app/static/qr_codes/
+media/qr_codes/
+qr_codes/

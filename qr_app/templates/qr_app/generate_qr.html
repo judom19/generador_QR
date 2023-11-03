@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador QR</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container col-md-8 border rounded border-3 p-3 mt-5">
+        <h1>Generador QR</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="text">Ingresa el texto para generar el código QR:</label>
+                <input type="text" name="text" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary">Generar QR</button>
+        </form>
+    <a class="btn btn-sm btn-info mt-3" href="{% url 'qr_app:qr_list' %}">Lista de códigos QR</a>
+    </div>
+
+</body>
+</html>

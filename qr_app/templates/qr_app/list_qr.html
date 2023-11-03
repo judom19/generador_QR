@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador QR</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h3>Códigos QR Generados</h3>    
+        <div class="row">
+            {% for qr_code in qr_codes %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ qr_code.qr_code_image.url }}" class="card-img-top" alt="Código QR">
+                    <div class="card-body">
+                        <h5 class="card-title">Código QR ID: {{ qr_code.id }}</h5>
+                        <p class="card-text">Texto: {{ qr_code.text }}</p>
+                        <a href="{% url 'qr_app:show_qr' qr_code.id %}" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
