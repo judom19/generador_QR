@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container col-md-8 border rounded border-3 p-3 mt-5">
+    <div class="container col-md-10 border rounded border-3 p-3 mt-5">
         <h1>Generador QR</h1>
         <form method="post">
             {% csrf_token %}
@@ -15,8 +15,11 @@
             </div>
             <button type="submit" class="btn btn-sm btn-primary">Generar QR</button>
         </form>
-    <a class="btn btn-sm btn-info mt-3" href="{% url 'qr_app:qr_list' %}">Lista de códigos QR</a>
+    
     </div>
-
+    <div class="container  col-md-8">
+        <a class="btn btn-sm btn-info mt-3" href="{% url 'qr_app:qr_list' %}">Lista de códigos QR</a>
+        <a class="btn btn-sm btn-secondary mt-3" href="{% url 'qr_app:generate_pdf_catalog' %}">Descargar Catálogo PDF</a>
+    </div>
 </body>
 </html>

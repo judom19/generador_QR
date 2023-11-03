@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.generate_qr, name='generate_qr'),
     path('show/<int:qr_id>/', views.show_qr, name='show_qr'),
     path('qr_list', views.qr_list, name='qr_list'),
+    path('generate_pdf_catalog/', views.generate_pdf_catalog, name='generate_pdf_catalog'), 
 ]
 
 if settings.DEBUG:

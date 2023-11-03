@@ -3,6 +3,9 @@ from django.core.files.base import ContentFile
 import qrcode
 from qr_app.models import QRCode
 from io import BytesIO
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 
 # funcion encargada de generar el codigo QR 
@@ -71,3 +74,45 @@ def qr_list(request):
     
     return render(request,'qr_app/list_qr.html',context)
 
+
+
+#vista encargada de generar un pdf de los códigos qr
+def generate_pdf_catalog(request):
+    # se obtiene la lista de codigos QR
+    qr_codes = QRCode.objects.all()
+
+    # se configura un buffer para almacenar el PDF
+    buffer = BytesIO()
+
+    # se crea el documento PDF
+    c = canvas.Canvas(buffer, pagesize=letter)
+
+    # se configura el tamaño y posición de las tarjetas de codigos QR
+    card_width = 200
+    card_height = 200
+    margin = 20
+    x = margin
+    y = letter[1] - margin - card_height
+
+    for qr_code in qr_codes:
+        # dibuja la tarjeta del codigo QR en el PDF
+        c.drawImage(qr_code.qr_code_image.path, x, y, card_width, card_height)
+        
+        # escribe el ID del codigo QR en la tarjeta
+        c.drawString(x, y - 10, f"Código QR ID: {qr_code.id}")
+        
+        # se mueve el cursor a la siguiente tarjeta, evitando que se salga de los limites de la pagina
+        x += card_width + margin
+        if x + card_width + margin > letter[0]:
+            x = margin
+            y -= card_height + margin
+
+    # se guarda el documento
+    c.save()
+
+    # se configura la respuesta para descargar el PDF.
+    buffer.seek(0)
+    response = FileResponse(buffer, as_attachment=True, filename='catalogo_qr.pdf')
+
+    # devuelve la respuesta
+    return response
